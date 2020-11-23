@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,10 +21,13 @@ public class ProductoController {
 	@Autowired
 	private IntProductosSevice productosService;
 	
-	@GetMapping("/eliminar")
-	public String eliminar() {
-		 return "view/productos/listaProducto"; 
-	}
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable("id") int  idProducto) {
+		productosService.buscarPorId(idProducto);
+		System.out.println("Producto eliminado con el id" + idProducto);
+		 return "redirect:view/productos/index ";
+		 }
+
 	
     
     @GetMapping("/index")
